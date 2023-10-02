@@ -8,11 +8,11 @@ body {
     background: #fff;
     color: #222;
     font-weight: 300;
+    margin: 30px;
 }
 
 .wrapper {
-    width: 1280px;
-    margin: 50px auto;
+    max-width: 1280px;
 }
 
 header {
@@ -90,6 +90,28 @@ header .shop-cart .item h2 {
 header .shop-cart .item b {
     color: #797979;
     font-weight: 600;
+}
+
+header .shop-cart .item .delete-icon {
+    color: #b84545;
+    float: right;
+    position: relative;
+    top: -25px;
+    cursor: pointer;
+    transition: color, transform 500ms ease;
+}
+
+header .shop-cart .item .delete-icon:hover {
+    color: #f12323;
+    transform: scale(1.5);
+}
+
+header .shop-cart .sum {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 header .presentation {
