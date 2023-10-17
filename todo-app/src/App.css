@@ -11,21 +11,42 @@ h1 {
 input {
     padding: 8px;
 }
+
+.filter-todo {
+    margin-left: 10px;
+    padding: 8px;
+}
+
+.newTodoText {
+    margin-right: 10px;
+}
   
 button {
     padding: 8px;
 }
-  
-div {
-    margin-top: 20px;
+
+.complete {
+	opacity: 0.5;
 }
-  
-div > div {
-    background-color: #f5f5f5;
-    padding: 10px;
-    margin: 5px;
+
+.newTodo {
     display: flex;
-    flex-direction: column;
+	align-items: center;
+	min-height: 35px;
+	margin: 20px 20px 0 20px;
+	padding: 0 0 0 16px;
+	border: none;
+	border-radius: 4px;
+    justify-content: space-between;
+    box-shadow: 
+        0px 0.3px 0.9px grey,
+        0px 1.6px 3.6px grey
+    ;
+}
+
+.container-btn {
+    display: flex;
+	align-items: center;
 }
 
   
