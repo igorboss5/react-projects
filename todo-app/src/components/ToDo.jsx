@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 
-const Todo = ({ todo, onDelete }) => {
-    const [isComplete, setIsComplete] = useState(false);
+const Todo = ({ todo, onDelete, filter }) => {
+    const [isComplete, setIsComplete] = useState(todo.isComplete);
 
     const handleCompleteToggle = () => {
-        setIsComplete(!isComplete);
+        setIsComplete(prevIsComplete => !prevIsComplete);
+    }
+    const isVisible =
+        filter === 'All' ||
+        (filter === 'Completed' && isComplete) ||
+        (filter === 'Uncompleted' && !isComplete);
+
+    if (!isVisible) {
+        return null;
     }
 
     return (
         <div className={`newTodo ${isComplete ? 'complete' : 'uncomplete'}`}>
-            <span className={`newTodoText ${isComplete ? 'complete' : ''}`}>{todo.text}</span>
+            <span className={`newTodoText ${isComplete ? 'complete' : ''}`}>
+                {todo.text}
+            </span>
+            
             <div className="container-btn">
                 <button onClick={handleCompleteToggle}>
                     {isComplete ? 'Undo' : 'Complete'}
