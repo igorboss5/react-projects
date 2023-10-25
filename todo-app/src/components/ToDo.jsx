@@ -1,34 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Todo = ({ todo, onDelete, filter }) => {
-    const [isComplete, setIsComplete] = useState(todo.isComplete);
-
-    const handleCompleteToggle = () => {
-        setIsComplete(prevIsComplete => !prevIsComplete);
-    }
-    const isVisible =
-        filter === 'All' ||
-        (filter === 'Completed' && isComplete) ||
-        (filter === 'Uncompleted' && !isComplete);
-
-    if (!isVisible) {
-        return null;
-    }
+const ToDo = ({ todo, onDelete }) => {
 
     return (
-        <div className={`newTodo ${isComplete ? 'complete' : 'uncomplete'}`}>
-            <span className={`newTodoText ${isComplete ? 'complete' : ''}`}>
-                {todo.text}
-            </span>
-            
-            <div className="container-btn">
-                <button onClick={handleCompleteToggle}>
-                    {isComplete ? 'Undo' : 'Complete'}
-                </button>
-                <button onClick={() => onDelete(todo.id)}>Delete</button>
-            </div>
+        <div>
+            <span>{todo.text}</span>
+            <button onClick={() => onDelete(todo)}>Delete</button>
         </div>
     )
 }
 
-export default Todo;
+export default ToDo;
