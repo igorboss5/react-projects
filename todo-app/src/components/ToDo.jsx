@@ -1,10 +1,13 @@
 import React from "react";
 
-const ToDo = ({ todo, onDelete }) => {
-
+const ToDo = ({ todo, onDelete, onComplete }) => {
+    
     return (
-        <div>
+        <div className={todo.isComplete ? 'completed' : ''}>
             <span>{todo.text}</span>
+            <button onClick={() => onComplete(todo)}>
+                {!todo.isComplete ? 'Complete' : 'Undo'}
+            </button>
             <button onClick={() => onDelete(todo)}>Delete</button>
         </div>
     )

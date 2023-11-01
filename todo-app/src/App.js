@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import './App.css'
 import ToDo from "./components/ToDo";
+import TodoFilter from "./components/TodoFilter";
 
 const App = () => {
     const [input, setInput] = useState('');
     const [todos, setTodos] = useState([]);
-
+    const [criteria, setCriteria] = useState('All')
 
     const handleInputChange = (event) => {
         setInput(event.target.value);
@@ -16,7 +17,8 @@ const App = () => {
 
         const newTodo = {
             id: Date.now(),
-            text: input
+            text: input,
+            isCompleted: false
         }
         setTodos([...todos, newTodo]);
 
@@ -33,19 +35,44 @@ const App = () => {
         setTodos(updateTodos)
     }
 
+    const handleCompleteTodo = (clickedTodo) => {
+        const updateTodos = todos.map((todo) => {
+            if (todo.id === clickedTodo.id) {
+                return {...todo, isCompleted: !todo.isCompleted}
+            }
+            return todo;
+        })
+        setTodos(updateTodos)
+        console.log(updateTodos);
+    }
+
+    const handleFilterTodo = (event) => {
+        const filterTodo = event.target.value;
+        setCriteria(filterTodo)
+    }
+
+    const filteredTodos = todos.filter((todo) => {
+        if (criteria === "Completed") return todo.isCompleted;
+        if (criteria === "Uncompleted") return !todo.isCompleted;
+        return true;
+    })
+
     return (
         <div className="App">
-            <input 
-                className="input-text" 
-                type="text" 
-                value={input} 
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-            />
-            <button className="button-add" onClick={handleAddTodo}>Add</button>
+            <div className="container-add-todo">
+                <input 
+                    className="input-text" 
+                    type="text" 
+                    value={input} 
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                />
+                <button className="button-add" onClick={handleAddTodo}>Add</button>
+            </div>
+            <TodoFilter onChange={handleFilterTodo} />
 
-            {todos.map((todo) => {
-                return <ToDo key={todo.id} todo={todo} onDelete={handleDeleteTodo} />
+            {filteredTodos.map((todo) => {
+                return <ToDo key={todo.id} todo={todo} onDelete={handleDeleteTodo} onComplete={handleCompleteTodo} />
             })}
         </div>
     )

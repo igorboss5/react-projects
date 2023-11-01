@@ -8,3 +8,11 @@
     text-align: center;
     margin: 20px;
 }
+
+.container-add-todo {
+    display: inline-block;
+}
+
+.container-filter {
+    display: inline-block;
+}
