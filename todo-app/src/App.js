@@ -60,6 +60,7 @@ const App = () => {
     return (
         <div className="App">
             <div className="container-add-todo">
+                <h1>Todo App</h1>
                 <input 
                     className="input-text" 
                     type="text" 
