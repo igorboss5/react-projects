@@ -57,12 +57,19 @@ const App = () => {
         return true;
     })
 
+    const handleEdit = (editedTodo) => {
+        const updateTodos = todos.map((todo) =>
+            todo.id === editedTodo.id ? editedTodo : todo
+        );
+        setTodos(updateTodos);
+    }
+
     return (
         <div className="App">
             <div className="container-add-todo">
                 <h1>Todo App</h1>
                 <input 
-                    className="input-text" 
+                    className="input-text"
                     type="text" 
                     value={input} 
                     onChange={handleInputChange}
@@ -73,7 +80,13 @@ const App = () => {
             <TodoFilter onChange={handleFilterTodo} />
 
             {filteredTodos.map((todo) => {
-                return <ToDo key={todo.id} todo={todo} onDelete={handleDeleteTodo} onComplete={handleCompleteTodo} />
+                return <ToDo
+                    key={todo.id}
+                    todo={todo}
+                    onDelete={handleDeleteTodo}
+                    onComplete={handleCompleteTodo}
+                    onEdit={handleEdit}
+                />
             })}
         </div>
     )
