@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css'
 import ToDo from "./components/ToDo";
 import TodoFilter from "./components/TodoFilter";
@@ -7,6 +7,15 @@ const App = () => {
     const [input, setInput] = useState('');
     const [todos, setTodos] = useState([]);
     const [criteria, setCriteria] = useState('All')
+
+    useEffect(() => {
+        const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+        setTodos(storedTodos);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos]);
 
     const handleInputChange = (event) => {
         setInput(event.target.value);

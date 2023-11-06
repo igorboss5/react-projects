@@ -105,6 +105,19 @@ h1 {
     color: #fff;
     cursor: pointer;
 }
+.custom-select {
+    background: #2a2a53;
+}
+
+.custom-select:active,
+.custom-select:focus {
+    border-color: #fff;
+}
+
+.custom-select option:checked {
+    background: #8758ff;
+    color: #fff;
+}
 
 .custom-select-arrow {
     position: absolute;
