@@ -16,7 +16,7 @@ const ToDo = ({ todo, onDelete, onComplete, onEdit }) => {
     }
     
     return (
-        <div className={`newTodo ${todo.isComplete ? 'completed' : ''}`}>
+        <div className={`newTodo ${todo.isCompleted ? 'completed' : ''}`}>
             {editing ? (
                 <>
                     <input
@@ -33,7 +33,7 @@ const ToDo = ({ todo, onDelete, onComplete, onEdit }) => {
                     <span>{todo.text}</span>
                     <div className="container-button">
                         <button onClick={() => onComplete(todo)}>
-                            {!todo.isComplete ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faUndo} />}
+                            {!todo.isCompleted ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faUndo} /> }
                         </button>
                         <button onClick={handleEdit}>
                             <FontAwesomeIcon icon={faEdit} />

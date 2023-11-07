@@ -66,7 +66,8 @@ h1 {
 */
 
 .completed {
-    color: #c5aeff;
+    background: #7862ac;
+    color: #c1a8fc;
     text-decoration: line-through;
     cursor: pointer;
 }

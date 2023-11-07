@@ -30,7 +30,6 @@ const App = () => {
             isCompleted: false
         }
         setTodos([...todos, newTodo]);
-
         setInput('');
     }
 
@@ -52,7 +51,6 @@ const App = () => {
             return todo;
         })
         setTodos(updateTodos)
-        console.log(updateTodos);
     }
 
     const handleFilterTodo = (event) => {
