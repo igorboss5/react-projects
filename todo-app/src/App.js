@@ -2,16 +2,27 @@ import React, { useState, useEffect } from "react";
 import './App.css'
 import ToDo from "./components/ToDo";
 import TodoFilter from "./components/TodoFilter";
+import { Droppable, DragDropContext } from 'react-beautiful-dnd';
+
+export const StrictModeDroppable = ({ children, ...props }) => {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+  if (!enabled) {
+    return null;
+  }
+  return <Droppable {...props}>{children}</Droppable>;
+};
 
 const App = () => {
     const [input, setInput] = useState('');
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')));
     const [criteria, setCriteria] = useState('All')
-
-    useEffect(() => {
-        const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
-        setTodos(storedTodos);
-    }, []);
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
@@ -71,32 +82,52 @@ const App = () => {
         setTodos(updateTodos);
     }
 
+    const handleDragEnd = (result) => {
+        console.log(result)
+        if (!result.destination) return;
+ 
+        const items = Array.from(todos);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+ 
+        setTodos(items);
+    };
+ 
     return (
-        <div className="App">
-            <div className="container-add-todo">
-                <h1>Todo App</h1>
-                <input 
-                    className="input-text"
-                    type="text" 
-                    value={input} 
-                    onChange={handleInputChange}
-                    onKeyDown={handleKeyDown}
-                />
-                <button className="button-add" onClick={handleAddTodo}>Add</button>
+            <div className="App">
+                <div className="container-add-todo">
+                   <h1>Todo App</h1>
+                   <input 
+                      className="input-text"
+                      type="text" 
+                      value={input} 
+                      onChange={handleInputChange}
+                      onKeyDown={handleKeyDown}
+                   />
+                   <button className="button-add" onClick={handleAddTodo}>Add</button>
+                </div>
+                <TodoFilter onChange={handleFilterTodo} />
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <StrictModeDroppable droppableId="todos">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef}>
+                                {filteredTodos.map((todo, index) => (
+                                    <ToDo
+                                        key={todo.id}
+                                        todo={todo}
+                                        onDelete={handleDeleteTodo}
+                                        onComplete={handleCompleteTodo}
+                                        onEdit={handleEdit}
+                                        index={index}
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </StrictModeDroppable>
+                </DragDropContext>
             </div>
-            <TodoFilter onChange={handleFilterTodo} />
-
-            {filteredTodos.map((todo) => {
-                return <ToDo
-                    key={todo.id}
-                    todo={todo}
-                    onDelete={handleDeleteTodo}
-                    onComplete={handleCompleteTodo}
-                    onEdit={handleEdit}
-                />
-            })}
-        </div>
     )
-}
-
-export default App;
+ }
+ 
+ export default App;
