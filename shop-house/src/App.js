@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
+import Items from "./components/Items";
+import Order from "./components/Order";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,9 +40,18 @@ class App extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <Header />
+        <Header orders={this.state.orders}/>
+        <Items items={this.state.items} onAdd={this.addToOrder}/>
       </div>
     )
+  }
+
+  addToOrder(item) {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    orders.push(item);
+
+    localStorage.setItem('orders', JSON.stringify(orders));
   }
 }
 
