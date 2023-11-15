@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
 import Items from "./components/Items";
-import Order from "./components/Order";
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ class App extends React.Component {
       currentItems: [],
       items: [
         {
-          id: 1,
+          id: Date.now(),
           title: 'Крісло',
           img: 'chair.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -19,7 +18,7 @@ class App extends React.Component {
           price: '49.99'
         },
         {
-          id: 2,
+          id:  Date.now(),
           title: 'Стіл',
           img: 'table.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -27,7 +26,7 @@ class App extends React.Component {
           price: '149.99'
         },
         {
-          id: 3,
+          id:  Date.now(),
           title: 'Диван',
           img: 'sofa.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -36,6 +35,7 @@ class App extends React.Component {
         }
       ]
     }
+    this.addToOrder = this.addToOrder.bind(this)
   }
   render() {
     return (
@@ -48,9 +48,7 @@ class App extends React.Component {
 
   addToOrder(item) {
     const orders = JSON.parse(localStorage.getItem('orders')) || [];
-
     orders.push(item);
-
     localStorage.setItem('orders', JSON.stringify(orders));
   }
 }
