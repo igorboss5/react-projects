@@ -1,0 +1,81 @@
+/* ShoppingCartModal.css */
+
+.modal {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  width: 450px;
+  background: #fafafa;
+  -webkit-box-shadow: 1px 5px 11px -3px #606060;
+  box-shadow: 1px 5px 15px -3px #606060;
+  z-index: 1000;
+  padding: 20px 20px 0 20px;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-content .item {
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.modal-content .item img {
+  width: 70px;
+  float: left;
+  margin-right: 20px;
+}
+
+.modal-content .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-content .item b {
+  color: #797979;
+  font-weight: 600;
+}
+
+.item .delete-icon {
+  color: #b84545;
+  float: right;
+  position: relative;
+  top: -25px;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+.item .delete-icon:hover {
+  color: #f12323;
+  transform: scale(1.5);
+}
+
+.shop-cart .sum {
+  float: left;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Add additional styles based on your design preferences */
