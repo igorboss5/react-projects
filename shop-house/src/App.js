@@ -10,7 +10,7 @@ class App extends React.Component {
       currentItems: [],
       items: [
         {
-          id: Date.now(),
+          id: 1,
           title: 'Крісло',
           img: 'chair.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -18,7 +18,7 @@ class App extends React.Component {
           price: '49.99'
         },
         {
-          id:  Date.now(),
+          id: 2,
           title: 'Стіл',
           img: 'table.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -26,7 +26,7 @@ class App extends React.Component {
           price: '149.99'
         },
         {
-          id:  Date.now(),
+          id: 3,
           title: 'Диван',
           img: 'sofa.jpeg',
           desc: 'Lorem ioas asdsa dasds asdsd',
@@ -37,6 +37,17 @@ class App extends React.Component {
     }
     this.addToOrder = this.addToOrder.bind(this)
   }
+
+  addToOrder(item) {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const isItemInOrders = orders.some(element => element.id === item.id);
+    if (!isItemInOrders) {
+      const updatedOrders = [...orders, item];
+      this.setState({ orders: updatedOrders });
+      localStorage.setItem('orders', JSON.stringify(updatedOrders));
+    }
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -44,12 +55,6 @@ class App extends React.Component {
         <Items items={this.state.items} onAdd={this.addToOrder}/>
       </div>
     )
-  }
-
-  addToOrder(item) {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    orders.push(item);
-    localStorage.setItem('orders', JSON.stringify(orders));
   }
 }
 

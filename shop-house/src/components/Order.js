@@ -8,7 +8,7 @@ class Order extends Component {
             <div className="item">
                 <img src={`./img/` + item.img} alt="#" />
                 <h2>{item.title}</h2>
-                <b>{item.price}</b>
+                <b>{item.price} $</b>
                 <FaTrash className="delete-icon" onClick={this.props.onDeleteOrder}/>
             </div>
         )

@@ -9,20 +9,19 @@ class ShoppingCartModal extends Component {
             orders: JSON.parse(localStorage.getItem('orders')) || []
         }
     }
-    DeleteOrder(order) {
+    deleteOrder = (order) => {
         const filterOrders = this.state.orders.filter(el => el.id !== order.id)
-        this.setState({orders: filterOrders})
-
+        this.setState({ orders: filterOrders })
+        localStorage.setItem('orders', JSON.stringify(filterOrders))
     }
     render() {
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
         return(
             <div className="modal">
                 <div className="modal-content">
-                    <span className="close" onClick={() => this.props.toggleShowModal()}>&times;</span>
+                    <span className="close" onClick={this.props.toggleCart}>&times;</span>
                     <h2>Shopping Cart</h2>
-                    {orders.map(order => (
-                        <Order key={order.id} item={order} onDeleteOrder={() => this.DeleteOrder(order)}/>
+                    {this.state.orders.map(order => (
+                        <Order key={order.id} item={order} onDeleteOrder={() => this.deleteOrder(order)}/>
                     ))}
                 </div>
             </div>
